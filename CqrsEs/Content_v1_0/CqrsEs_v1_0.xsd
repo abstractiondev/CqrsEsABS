@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 sp1 (http://www.altova.com) by Kalle Launiala (Citrus Solutions Oy) -->
+<xs:schema xmlns="http://tempuri.org/CqrsEs_v1_0.xsd" xmlns:mstns="http://tempuri.org/CqrsEs_v1_0.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://tempuri.org/CqrsEs_v1_0.xsd" elementFormDefault="qualified" id="CqrsEs_v1_0">
+	<xs:element name="CqrsEsAbstraction">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Domains">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Domain" type="DomainType"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ParameterType">
+		<xs:complexContent>
+			<xs:extension base="VariableType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="VariableType">
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="dataType" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="DomainType">
+		<xs:sequence>
+			<xs:element name="AggregateRoots">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="AggregateRoot" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Commands">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="CreationCommand" maxOccurs="unbounded">
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="Parameters" minOccurs="0">
+																<xs:complexType>
+																	<xs:sequence>
+																		<xs:element name="Parameter" type="ParameterType" maxOccurs="unbounded"/>
+																	</xs:sequence>
+																</xs:complexType>
+															</xs:element>
+														</xs:sequence>
+														<xs:attribute name="name" type="xs:string" use="required"/>
+													</xs:complexType>
+												</xs:element>
+												<xs:element name="Command" maxOccurs="unbounded">
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="Parameters" minOccurs="0">
+																<xs:complexType>
+																	<xs:sequence>
+																		<xs:element name="Parameter" type="ParameterType" maxOccurs="unbounded"/>
+																	</xs:sequence>
+																</xs:complexType>
+															</xs:element>
+														</xs:sequence>
+														<xs:attribute name="name" type="xs:string" use="required"/>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="Fields" minOccurs="0">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="Field" maxOccurs="unbounded">
+													<xs:complexType>
+														<xs:attribute name="name" type="xs:string" use="required"/>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+								<xs:attribute name="name" type="xs:string" use="required"/>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Events">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Event" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Parameters" minOccurs="0">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="Parameter" type="ParameterType" maxOccurs="unbounded"/>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+								<xs:attribute name="name" type="xs:string" use="required"/>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Projections">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Projection" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="ForEvent" maxOccurs="unbounded">
+										<xs:complexType>
+											<xs:attribute name="eventName" type="xs:string" use="required"/>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="Queries" minOccurs="0">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="Query" maxOccurs="unbounded">
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="Parameters" minOccurs="0">
+																<xs:complexType>
+																	<xs:sequence>
+																		<xs:element name="Parameter" type="ParameterType" maxOccurs="unbounded"/>
+																	</xs:sequence>
+																</xs:complexType>
+															</xs:element>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+								<xs:attribute name="name" type="xs:string" use="required"/>
+								<xs:attribute name="includeImplicitQuery" type="xs:boolean" use="required"/>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required"/>
+	</xs:complexType>
+</xs:schema>
